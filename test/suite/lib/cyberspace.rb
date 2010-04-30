@@ -1,2 +1,2 @@
-BareTest.suite "CyberSpace" do
+BareTest.suite "Cyberspace" do
 end

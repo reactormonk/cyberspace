@@ -1,5 +1,5 @@
 require 'json'
-module CyberSpace
+module Cyberspace
   module JSONProtocol
     def receive_data(data)
       (@buffer ||= BufferedTokenizer.new("\x00").extract(data).each do |json|

@@ -1,7 +1,7 @@
 require 'eventmachine'
 require_relative 'json_protocol'
 
-module CyberSpace
+module Cyberspace
   # Protocol JSON
   #
   # Basic Parameters (may be added to each request):

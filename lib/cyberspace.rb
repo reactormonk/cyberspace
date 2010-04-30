@@ -1,2 +1,2 @@
-module CyberSpace
+module Cyberspace
 end

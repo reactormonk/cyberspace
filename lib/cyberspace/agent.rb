@@ -1,7 +1,7 @@
 require 'eventmachine'
 require_relative 'json_protocol'
 
-module CyberSpace
+module Cyberspace
   module Agent
     include JSONProtocol
 
