@@ -8,7 +8,7 @@ module CyberSpace
     def post_init
     end
 
-    def receive_json(json)
+    def receive_hash(hash)
     end
 
   end
