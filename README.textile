@@ -1,0 +1,3 @@
+h1. Cyberspace
+
+This is the master forking agents that play the game. The protocol is JSON-based and may implement any action, depending on your game.

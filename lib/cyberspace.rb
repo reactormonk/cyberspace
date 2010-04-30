@@ -1,0 +1,2 @@
+module CyberSpace
+end
