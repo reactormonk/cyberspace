@@ -2,13 +2,13 @@ require 'eventmachine'
 require_relative 'json_protocol'
 
 module Cyberspace
-  module Agent
+  module Client
     include JSONProtocol
 
-    def self.enter_the_matrix(agent)
+    def self.enter_the_matrix(client)
       EM::run do
         em = EM.attach($stdin, self)
-        em.receiver = agent
+        em.receiver = client
       end
     end
 
