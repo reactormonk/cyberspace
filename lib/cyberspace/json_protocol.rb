@@ -14,6 +14,7 @@ module Cyberspace
   # error     => e.class
   # body      => e
   # backtrace => e.backtrace
+  # sent      => json         # incoming data
   #
   module JSONProtocol
 
@@ -24,14 +25,16 @@ module Cyberspace
         begin
           receive_hash(JSON.parse(json))
         rescue => e
-          send_hash({:status => :error, :data => {:error => e.class, :body => e, :backtrace => e.backtrace}})
+          send_hash({:status => :error, :data => {:error => e.class, :body => e, :backtrace => e.backtrace, :sent => json}})
         end
       end
     end
 
+    attr :receiver
+
     def receive_hash(hash)
-      if respond_to?(hash['action']) && ! Object.new.respond_to?(hash['action'])
-        send(hash['action'])
+      if (receiver ||= self).respond_to?(hash['action']) && ! Object.new.respond_to?(hash['action'])
+        receiver.send(hash['action'])
       else
         raise NoMethodError, "private method called: #{hash['action']}"
       end
