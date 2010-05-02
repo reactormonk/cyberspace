@@ -5,10 +5,11 @@ module Cyberspace
   module Agent
     include JSONProtocol
 
-    def post_init
-    end
-
-    def receive_hash(hash)
+    def self.enter_the_matrix(agent)
+      EM::run do
+        em = EM.attach($stdin, self)
+        em.receiver = agent
+      end
     end
 
   end

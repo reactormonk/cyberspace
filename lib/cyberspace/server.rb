@@ -16,9 +16,6 @@ module Cyberspace
     def post_init
     end
 
-    def receive_hash(hash)
-    end
-
     def unbind
     end
 
