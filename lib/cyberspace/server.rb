@@ -9,13 +9,23 @@ module Cyberspace
   #   determines wherever to wait if not enough AP are avaible or send
   #   an error message back
   #
-  module Server
-    include JSONProtocol
+  module Matrix
 
-    def post_init
-    end
+    # This class is subclasses using Class.new to create responders.
+    class Server
+      include JSONProtocol
 
-    def unbind
+      # The associated client
+      class << self
+        attr :client
+      end
+
+      def post_init
+      end
+
+      def unbind
+      end
+
     end
 
     # This might be somewhat of confusing, but this Client is the serverside
@@ -42,7 +52,8 @@ module Cyberspace
       # @raise [NotImplementedError] in case the language is not supported
       def setup_jail
         if jail = Jails.const_get(lang.capitalize)
-          jail.new(@libs, @code)
+          client = self
+          jail.new(@libs, @code, Class.new(Server) { self.client = self } )
         else
           raise NotImplementedError, "#{@lang} is not supported yet."
         end
