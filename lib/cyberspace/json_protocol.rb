@@ -1,4 +1,6 @@
 require 'json'
+require 'eventmachine'
+
 module Cyberspace
 
   # The Protocol is basically JSON hashes separated by zero bytes.

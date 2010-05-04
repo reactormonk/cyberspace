@@ -1,4 +1,3 @@
-require 'eventmachine'
 require_relative 'json_protocol'
 
 module Cyberspace
