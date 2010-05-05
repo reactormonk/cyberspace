@@ -22,7 +22,7 @@ module Cyberspace
         begin
           send_hash(receive_hash(JSON.parse(json)))
         rescue => e
-          send_hash({:status => :error, :data => {:error => e.class, :body => e, :backtrace => e.backtrace, :sent => json}})
+          send_hash({:action => :error, :data => {:error => e.class, :body => e, :backtrace => e.backtrace, :sent => json}})
         end
       end
     end

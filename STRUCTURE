@@ -24,4 +24,7 @@ Hash is as following:
 * action: <method to call>
 * data:   <data passed to the method> 
 
+If one side casuses an exception, the action is :error, and the data contains
+informations about the error.
+
 See documentation of Matrix::Server for method/data listing.
