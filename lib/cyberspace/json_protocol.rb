@@ -31,11 +31,21 @@ module Cyberspace
 
     # @raise [NoMethodError] in case the specified action isn't defined
     # @return [Object] the return value of the called action
+    # @param [Hash] hash JSON hash passed
+    # @option hash [String] 'action' method to be called
+    # @option hash [Hash] 'data' parameters
     def receive_hash(hash)
       if (receiver ||= self).respond_to?(hash['action']))
-        receiver.send(hash['action'])
+        case receiver.method(hash['action']).arity
+        when 0
+          receiver.send(hash['action'])
+        when 1, -1, -2
+          receiver.send(hash['action'], hash['data'])
+        else
+          raise ArgumentError, "#{hash['action']} got incorrect arity"
+        end
       else
-        raise NoMethodError, "private method called: #{hash['action']}"
+        raise NoMethodError, "action not allowed: #{hash['action']}"
       end
     end
 
