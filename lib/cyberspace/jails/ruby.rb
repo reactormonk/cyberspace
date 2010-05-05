@@ -7,6 +7,7 @@ module Cyberspace
       # @param [Class, Module] passed to EM::popen
       def initialize(libs, code, server)
         @libs, @code, @server = libs, code, server
+        @libs.unshift('json')
       end
 
       # The EM connection
