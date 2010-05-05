@@ -1,4 +1,5 @@
 require 'monitor'
+require 'state_machine'
 class Cyberspace
   class Matrix
     # This might be somewhat of confusing, but this Client is the serverside
@@ -6,7 +7,18 @@ class Cyberspace
     class Client
       include MonitorMixin
 
-      VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]
+      state_machine(initial: :loading) do
+
+        event :ready do
+          transition :loading => :ready
+        end
+
+        after_transition to: :ready do |client, transition|
+          client.matrix.ready
+          true
+        end
+
+      end
 
       # @param [Object] identifier of the Client
       # @param [String] language used
@@ -16,7 +28,6 @@ class Cyberspace
       def initialize(identifier, lang, libs, code, matrix)
         @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
         clients.merge!(identifier => self)
-        @lock = Mutex.new
         @state = :loading
       end
 
@@ -47,17 +58,6 @@ class Cyberspace
       # @param [Hash] send this hash to the Client
       def send_hash(hash)
         connection.send_hash(hash)
-      end
-
-      def state=(state)
-        raise ArgumentError, "invalid state" unless VALID_STATES.include?(state)
-        raise ThreadError, "state is being changed" unless mon_try_enter
-        @state = state
-        mon_exit
-      end
-
-      def state
-        @state
       end
 
     end
