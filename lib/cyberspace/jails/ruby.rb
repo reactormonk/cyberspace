@@ -8,6 +8,7 @@ module Cyberspace
       def initialize(libs, code, server)
         @libs, @code, @server = libs, code, server
         @libs.unshift('json')
+        enter_the_matrix
       end
 
       # The EM connection
@@ -19,7 +20,7 @@ module Cyberspace
         self.connection = EM::popen("ruby #{@libs.map {|lib| "-r#{lib} "}} -T3", @server)
         connection.send_data(@code)
         connection.send_data <<-CODE
-          puts {:ready => true}.to_json + "\x00"
+          puts {:action => ready}.to_json + "\x00"
           __END__
         CODE
       end

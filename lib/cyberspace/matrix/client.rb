@@ -6,7 +6,7 @@ class Cyberspace
     class Client
       include MonitorMixin
 
-      VALID_STATES = [:waiting, :loading, :ready, :running, :stopping, :stopped]
+      VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]
 
       # @param [Object] identifier of the Client
       # @param [String] language used
@@ -17,16 +17,17 @@ class Cyberspace
         @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
         clients.merge!(identifier => self)
         @lock = Mutex.new
-        @state = :waiting
+        @state = :loading
       end
 
-      attr_reader :identifier, :lang, :libs, :code, :jail, :matrix
+      attr_reader :identifier, :lang, :libs, :code, :jail, :matrix, :server
 
       # @raise [NotImplementedError] in case the language is not supported
       def setup_jail
         if jail = Jails.const_get(lang.capitalize)
           client = self
-          jail.new(@libs, @code, Class.new(Server) { self.client = self } )
+          @server = Class.new(Server) { self.client = self }
+          jail.new(@libs, @code, @server)
         else
           raise NotImplementedError, "#{@lang} is not supported yet."
         end

@@ -5,7 +5,8 @@ module Cyberspace
 
       undef :instance_eval, :instance_exec
 
-      def ready(state)
+      def ready
+        client.state = :ready
       end
 
       protected
