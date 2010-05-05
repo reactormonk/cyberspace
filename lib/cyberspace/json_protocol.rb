@@ -32,7 +32,7 @@ module Cyberspace
     # @raise [NoMethodError] in case the specified action isn't defined
     # @return [Object] the return value of the called action
     def receive_hash(hash)
-      if (receiver ||= self).respond_to?(hash['action']) && ! Object.method_defined?(hash['action'])
+      if (receiver ||= self).respond_to?(hash['action']))
         receiver.send(hash['action'])
       else
         raise NoMethodError, "private method called: #{hash['action']}"
