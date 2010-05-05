@@ -1,28 +1,23 @@
 require 'monitor'
-module Cyberspace
-  module Matrix
+class Cyberspace
+  class Matrix
     # This might be somewhat of confusing, but this Client is the serverside
     # storage of the client's data.
     class Client
       include MonitorMixin
 
-      # References to clients are stored here.
-      class << self
-        attr_reader :clients
-      end
-      self.clients = {}
-
-      # @param [Object] identifier of the Agent (preferably integer)
+      # @param [Object] identifier of the Client
       # @param [String] language used
       # @param [Array<String>] libraries to load WARNING! sanitize them!
       # @param [String] code to load
-      def initialize(identifier, lang, libs, code)
-        @identifier, @lang, @libs, @code = identifier, lang, libs, code
+      # @param [Matrix] the matrix this Client belongs to
+      def initialize(identifier, lang, libs, code, matrix)
+        @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
         clients.merge!(identifier => self)
         @lock = Mutex.new
       end
 
-      attr_reader :identifier, :lang, :libs, :code, :jail
+      attr_reader :identifier, :lang, :libs, :code, :jail, :matrix
 
       # @raise [NotImplementedError] in case the language is not supported
       def setup_jail
@@ -40,9 +35,14 @@ module Cyberspace
         jail.enter_the_matrix
       end
 
-      # @return [EM::Connection] connection to the client
+      # @return [EventMachine::Connection] connection to the client
       def connection
         jail.connection
+      end
+
+      # @param [Hash] send this hash to the Client
+      def send_hash(hash)
+        connection.send_hash(hash)
       end
 
       VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]

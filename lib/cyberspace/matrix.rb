@@ -11,7 +11,31 @@ module Cyberspace
   #   determines wherever to wait if not enough AP are avaible or send
   #   an error message back
   #
-  module Matrix
+  class Matrix
+
+    def initialize
+      @clients = {}
+    end
+
+    attr :clients
+
+    # @param [Object] identifier of the Client
+    # @param [String] language used
+    # @param [Array<String>] libraries to load WARNING! sanitize them!
+    # @param [String] code to load
+    def add_client(identifier, lang, libs, code)
+      clients[identifier] = Client.new(identifier, lang, libs, code, self)
+    end
+
+    # Let the fun begin!
+    def enter
+      clients.each { |ident, client| client.enter_the_matrix }
+    end
+
+    # @param [Hash] send a hash to all clients
+    def broadcast(hash)
+
+    end
 
   end
 end
