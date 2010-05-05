@@ -6,6 +6,8 @@ class Cyberspace
     class Client
       include MonitorMixin
 
+      VALID_STATES = [:waiting, :loading, :ready, :running, :stopping, :stopped]
+
       # @param [Object] identifier of the Client
       # @param [String] language used
       # @param [Array<String>] libraries to load WARNING! sanitize them!
@@ -15,6 +17,7 @@ class Cyberspace
         @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
         clients.merge!(identifier => self)
         @lock = Mutex.new
+        @state = :waiting
       end
 
       attr_reader :identifier, :lang, :libs, :code, :jail, :matrix
@@ -44,8 +47,6 @@ class Cyberspace
       def send_hash(hash)
         connection.send_hash(hash)
       end
-
-      VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]
 
       def state=(state)
         raise ArgumentError, "invalid state" unless VALID_STATES.include?(state)
