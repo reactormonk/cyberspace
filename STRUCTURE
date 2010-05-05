@@ -1,0 +1,27 @@
+Matrix
+  |
+  |--- Matrix::Client --- Matrix::Server --|Pipe|-- Agent
+  |
+  |--- Matrix::Client --- Matrix::Server --|Pipe|-- Agent
+
+Matrix states:
+* loading   (a client was added and the Agent is still loading)
+* ready
+* running
+* stopping  (sending signals, children reaping)
+* stopped
+
+Client states:
+* loading (the Agent still loads code)
+* ready
+* running
+* failed  (if unbind gets called and Matrix is still running)
+* stopped (unbound)
+
+Pipe Protocol is JSON, separated by \x00
+Hash is as following:
+
+* action: <method to call>
+* data:   <data passed to the method> 
+
+See documentation of Matrix::Server for method/data listing.
