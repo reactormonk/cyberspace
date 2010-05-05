@@ -1,18 +1,17 @@
 module Cyberspace
-  module Matrix
-    # This class is subclasses using Class.new to create responders.
-    class Server
+  class Matrix
+    class Server < BasicObject
       include JSONProtocol
 
-      # JSON callable methods go here
+      undef :instance_eval, :instance_exec
 
-      protected
-      # The associated client
-      class << self
-        attr :client
+      def ready(state)
       end
 
-      def post_init
+      protected
+      # Client goes here
+      class << self
+        attr :client
       end
 
       def unbind
