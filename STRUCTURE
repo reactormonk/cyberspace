@@ -4,19 +4,14 @@ Matrix
   |
   |--- Matrix::Client --- Matrix::Server --|Pipe|-- Agent
 
-Matrix states:
-* loading   (a client was added and the Agent is still loading)
-* ready
-* running
-* stopping  (sending signals, children reaping)
-* stopped
+Matrix:
+add clients => enter => exit
 
-Client states:
-* loading (the Agent still loads code)
-* ready
-* running
-* failed  (if unbind gets called and Matrix is still running)
-* stopped (unbound)
+Client:
+* notify Matrix when finished loading
+* enter_the_matrix
+* exit_the_matrix
+* notify when exited
 
 Pipe Protocol is JSON, separated by \x00
 Hash is as following:

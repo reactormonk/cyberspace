@@ -1,24 +1,10 @@
 require 'monitor'
-require 'state_machine'
 class Cyberspace
   class Matrix
     # This might be somewhat of confusing, but this Client is the serverside
     # storage of the client's data.
     class Client
       include MonitorMixin
-
-      state_machine(initial: :loading) do
-
-        event :ready do
-          transition :loading => :ready
-        end
-
-        after_transition to: :ready do |client, transition|
-          client.matrix.ready
-          true
-        end
-
-      end
 
       # @param [Object] identifier of the Client
       # @param [String] language used
@@ -45,7 +31,7 @@ class Cyberspace
       end
 
       # Let the fun begin!
-      def enter_the_matrix
+      def enter
         self.jail = setup_jail
         jail.enter_the_matrix
       end
