@@ -1,8 +1,10 @@
+require 'monitor'
 module Cyberspace
   module Matrix
     # This might be somewhat of confusing, but this Client is the serverside
     # storage of the client's data.
     class Client
+      include MonitorMixin
 
       # References to clients are stored here.
       class << self
@@ -44,6 +46,17 @@ module Cyberspace
       end
 
       VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]
+
+      def state=(state)
+        raise ArgumentError, "invalid state" unless VALID_STATES.include?(state)
+        raise ThreadError, "state is being changed" unless mon_try_enter
+        @state = state
+        mon_exit
+      end
+
+      def state
+        @state
+      end
 
     end
   end
