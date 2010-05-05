@@ -1,33 +1,5 @@
-require_relative 'json_protocol'
-
 module Cyberspace
-  # Protocol JSON
-  #
-  # Basic Parameters (may be added to each request):
-  #
-  # wait (True or False):
-  #   determines wherever to wait if not enough AP are avaible or send
-  #   an error message back
-  #
   module Matrix
-
-    # This class is subclasses using Class.new to create responders.
-    class Server
-      include JSONProtocol
-
-      # The associated client
-      class << self
-        attr :client
-      end
-
-      def post_init
-      end
-
-      def unbind
-      end
-
-    end
-
     # This might be somewhat of confusing, but this Client is the serverside
     # storage of the client's data.
     class Client
@@ -45,9 +17,10 @@ module Cyberspace
       def initialize(identifier, lang, libs, code)
         @identifier, @lang, @libs, @code = identifier, lang, libs, code
         clients.merge!(identifier => self)
+        @lock = Mutex.new
       end
 
-      attr_reader :identifier, :lang, :libs, :code, :jail, :ready
+      attr_reader :identifier, :lang, :libs, :code, :jail
 
       # @raise [NotImplementedError] in case the language is not supported
       def setup_jail
@@ -70,7 +43,8 @@ module Cyberspace
         jail.connection
       end
 
-    end
+      VALID_STATES = [:loading, :ready, :running, :stopping, :stopped]
 
+    end
   end
 end
