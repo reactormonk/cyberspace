@@ -13,8 +13,11 @@ module Cyberspace
   #
   class Matrix
 
+    VALID_STATES = [:waiting, :loading, :running, :stopping, :stopped]
+
     def initialize
       @clients = {}
+      @state = :waiting
     end
 
     attr :clients
@@ -34,7 +37,18 @@ module Cyberspace
 
     # @param [Hash] send a hash to all clients
     def broadcast(hash)
+      clients.each { |ident, client| client.send_hash(hash) }
+    end
 
+    # @param [Symbol] state to be set
+    def state=(state)
+      raise ArgumentError, "invalid state" unless VALID_STATES.include?(state)
+      @state = state
+    end
+
+    # @return [Symbol]
+    def state
+      @state
     end
 
   end
