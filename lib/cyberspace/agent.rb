@@ -1,7 +1,7 @@
 require_relative 'json_protocol'
 
 module Cyberspace
-  module Client
+  module Agent
     include JSONProtocol
 
     def initialize
