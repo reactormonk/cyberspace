@@ -35,7 +35,7 @@ module Cyberspace
     # @option hash [String] 'action' method to be called
     # @option hash [Hash] 'data' parameters
     def receive_hash(hash)
-      if (receiver ||= self).respond_to?(hash['action']))
+      if hash['action'] !~ /^__.*/ && (receiver ||= self).respond_to?(hash['action'])
         case receiver.method(hash['action']).arity
         when 0
           receiver.send(hash['action'])
