@@ -3,7 +3,7 @@ module Cyberspace
     class Server < BasicObject
       include JSONProtocol
 
-      undef :instance_eval, :instance_exec
+      protected :instance_eval, :instance_exec
 
       def ready
         client.state = :ready
