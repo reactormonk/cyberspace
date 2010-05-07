@@ -16,11 +16,28 @@ class Cyberspace
         @state = :loading
       end
 
-      attr_reader :identifier, :lang, :libs, :code, :jail, :matrix, :server
+      # @return [Object] identifier of the Client
+      attr_reader :identifier
+      # @return [String] language used
+      attr_reader :language
+      # @return [Array<String>] libraries to be loaded
+      attr_reader :libs
+      # @return [String] code to be loaded by the jail
+      attr_reader :code
+      # @return [Jails] the Jail this Client runs in
+      attr_reader :jail
+      # @return [Matrix] the matrix this Client belongs to
+      attr_reader :matrix
+      # @return [Class] the class running as server
+      attr_reader :server
+      # @return [true|nil] wherever the client is ready to run
+      attr_reader :ready
 
       # @raise [NotImplementedError] in case the language is not supported
+      # @return [Jails] the Jail this Client has been started in
       def setup_jail
-        if jail = Jails.const_get(lang.capitalize)
+        if Jails.const_defined?(lang.capitalize)
+          jail = Jails.const_get(lang.capitalize)
           client = self
           @server = Class.new(Server) { self.client = self }
           jail.new(@libs, @code, @server)
@@ -30,7 +47,7 @@ class Cyberspace
       end
 
       # Let the fun begin!
-      def enter
+      def enter_the_matrix
         self.jail = setup_jail
         jail.enter_the_matrix
       end
