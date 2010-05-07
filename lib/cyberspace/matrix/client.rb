@@ -13,7 +13,6 @@ class Cyberspace
       # @param [Matrix] the matrix this Client belongs to
       def initialize(identifier, lang, libs, code, matrix)
         @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
-        clients.merge!(identifier => self)
         @state = :loading
       end
 
