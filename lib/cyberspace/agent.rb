@@ -4,10 +4,8 @@ module Cyberspace
   module Agent
     include JSONProtocol
 
-    def initialize
-    end
-
-    def self.enter_the_matrix(client)
+    # Attach self to stdin, so it can answer incoming requests.
+    def self.enter_the_matrix
       EM::run do
         EM.attach($stdin, self)
       end

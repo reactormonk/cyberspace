@@ -1,12 +1,10 @@
 module Cyberspace
   class Matrix
-    class Server < BasicObject
+    module Server
       include JSONProtocol
 
-      protected :instance_eval, :instance_exec
-
       def ready
-        client.state = :ready
+        # reimplement
       end
 
       protected
