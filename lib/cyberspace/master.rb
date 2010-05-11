@@ -1,5 +1,5 @@
 module Cyberspace
-  class Master < EM::Connection
+  module Master
 
     # @param [Hash] data for the new client
     def add_client(hash)
