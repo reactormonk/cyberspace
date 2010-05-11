@@ -39,7 +39,7 @@ class Cyberspace
         if Jails.const_defined?(lang.capitalize)
           jail = Jails.const_get(lang.capitalize)
           client = self
-          @server = Module.new(Server) { self.client = self }
+          @server = Module.new(Server) { self.client = client }
           jail.new(@libs, @code, @server)
         else
           raise NotImplementedError, "#{@lang} is not supported yet."
