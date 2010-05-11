@@ -19,6 +19,7 @@ module Cyberspace
       def enter_the_matrix
         self.connection = EM::popen("ruby #{@libs.map {|lib| "-r#{lib} "}} -T3", @server)
         connection.send_data(@code)
+        # We're doing it this way to ensure no agent got incorrect behaviour...
         connection.send_data <<-CODE
           puts {:action => :ready}.to_json + "\x00"
           __END__
