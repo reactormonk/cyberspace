@@ -6,18 +6,18 @@ class Cyberspace
     class Client
       include MonitorMixin
 
-      # @param [Object] identifier of the Client
-      # @param [String] language used
-      # @param [Array<String>] libraries to load WARNING! sanitize them!
-      # @param [String] code to load
-      # @param [Matrix] the matrix this Client belongs to
-      def initialize(identifier, lang, libs, code, matrix)
-        @identifier, @lang, @libs, @code, @matrix = identifier, lang, libs, code, matrix
-        @state = :loading
+      # @param [Hash] hash argument hash
+      # @option hash [Object] 'id' id of the Client
+      # @option hash [String] 'lang' language used
+      # @option hash [Array<String>] 'libs' libraries to load WARNING! sanitize them!
+      # @option hash [String] 'code' code to load
+      # @param [Matrix] matrix the matrix this Client belongs to
+      def initialize(hash, matrix)
+        @id, @lang, @libs, @code, @matrix = hash['id'], hash['lang'], hash['libs'], hash['code'], matrix
       end
 
-      # @return [Object] identifier of the Client
-      attr_reader :identifier
+      # @return [Object] id of the Client
+      attr_reader :id
       # @return [String] language used
       attr_reader :language
       # @return [Array<String>] libraries to be loaded

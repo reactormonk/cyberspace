@@ -4,7 +4,8 @@ module Cyberspace
       include JSONProtocol
 
       def ready
-        # reimplement
+        client.ready = true
+        client.matrix.enter
       end
 
       protected
