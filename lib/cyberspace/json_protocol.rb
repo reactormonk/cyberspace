@@ -55,5 +55,14 @@ module Cyberspace
       send_data(hash.to_json + "\x00")
     end
 
+    # @param [Hash] hash to be checked
+    # @param [Array<String>] *keys to check for
+    # @raise [ArgumentError] if the key doesn't exist
+    def check_existence(hash, *keys)
+      keys.each do |key|
+        raise ArgumentError, "no #{key} given" unless hash.has_key?(key)
+      end
+    end
+
   end
 end
