@@ -49,7 +49,7 @@ module Cyberspace
       end
     end
 
-    # @param [#to_json]
+    # @param [#to_json] hash hash to be sent to the agent
     # @see EventMachine::Connection#send_data
     def send_hash(hash)
       send_data(hash.to_json + "\x00")

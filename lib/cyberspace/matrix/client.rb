@@ -19,7 +19,7 @@ class Cyberspace
       # @return [Object] id of the Client
       attr_reader :id
       # @return [String] language used
-      attr_reader :language
+      attr_reader :lang
       # @return [Array<String>] libraries to be loaded
       attr_reader :libs
       # @return [String] code to be loaded by the jail
@@ -57,7 +57,7 @@ class Cyberspace
         jail.connection
       end
 
-      # @param [Hash] send this hash to the Client
+      # @param [Hash] hash send this hash to the Client
       def send_hash(hash)
         connection.send_hash(hash)
       end

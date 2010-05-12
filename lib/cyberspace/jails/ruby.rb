@@ -2,16 +2,16 @@ module Cyberspace
   module Jails
     class Ruby
 
-      # @param [Array<String>] libraries to load
-      # @param [String] code to run
-      # @param [Class, Module] passed to EM::popen
+      # @param [Array<String>] libs libraries to load
+      # @param [String] code code to run
+      # @param [Class, Module] server passed to EM::popen
       def initialize(libs, code, server)
         @libs, @code, @server = libs, code, server
         @libs.unshift('json')
         enter_the_matrix
       end
 
-      # The EM connection
+      # @return [EM::Connection] connection The EM connection
       attr_reader :connection
 
       # connect the client, and let it send back {:action => ready} when
