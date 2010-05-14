@@ -1,19 +1,17 @@
-require 'monitor'
 class Cyberspace
   class Matrix
     # This might be somewhat of confusing, but this Client is the serverside
     # storage of the client's data.
     class Client
-      include MonitorMixin
 
-      # @param [Hash] hash argument hash
-      # @option hash [Object] 'id' id of the Client
-      # @option hash [String] 'lang' language used
-      # @option hash [Array<String>] 'libs' libraries to load WARNING! sanitize them!
-      # @option hash [String] 'code' code to load
+      # Create a new Client. Data not checked for existence, be careful.
+      # @option params [Object] 'id' id of the Client
+      # @option params [String] 'lang' language used
+      # @option params [Array<String>] 'libs' libraries to load WARNING! sanitize them!
+      # @option params [String] 'code' code to load
       # @param [Matrix] matrix the matrix this Client belongs to
-      def initialize(hash, matrix)
-        @id, @lang, @libs, @code, @matrix = hash['id'], hash['lang'], hash['libs'], hash['code'], matrix
+      def initialize(matrix, params={})
+        @id, @lang, @libs, @code, @matrix = params['id'], params['lang'], params['libs'], params['code'], matrix
         @ready = false
       end
 
