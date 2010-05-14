@@ -4,14 +4,16 @@ module Cyberspace
       include JSONProtocol
 
       # This method is called by the agent if it's finished loading
+      # @return true
       def ready
         client.ready = true
         client.matrix.enter
+        true
       end
 
       protected
-      # Client goes here
       class << self
+        # Client goes here
         attr :client
       end
 
