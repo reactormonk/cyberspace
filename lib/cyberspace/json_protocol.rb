@@ -4,6 +4,13 @@ require 'eventmachine'
 module Cyberspace
 
   # The Protocol is basically JSON hashes separated by zero bytes.
+  #
+  # Basic Parameters (may be added to each request):
+  #
+  # wait (True or False):
+  #   determines wherever to wait if not enough AP are avaible or send
+  #   an error message back
+  #
   module JSONProtocol
 
     private
