@@ -4,13 +4,20 @@ require_relative 'matrix/client'
 
 module Cyberspace
 
+  # @param [Class] matrix the matrix you want to register
+  # @param [#to_s] name (matrix) how you want to call it
+  def self.register(matrix, name=matrix)
+    Matrix::ENVIRNOMENTS.merge!(name.to_s => matrix)
+  end
+
   class Matrix
 
-    # Different Enviroments register here. (TODO Helper method)
     ENVIRNOMENTS = {}
 
+    # @param [String] enviroment where the matrix should run
     def initialize(enviroment)
-      @enviroment = ENVIRNOMENTS[enviroment].new(self)
+      raise "enviroment not registered" unless env = ENVIRNOMENTS[enviroment]
+      @enviroment = env.new(self)
       @clients = {}
       @state = :waiting
     end
