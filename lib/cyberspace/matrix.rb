@@ -25,15 +25,15 @@ module Cyberspace
     # @return [Enviroment] enviroment the enviroment the matrix is running in
     attr_reader :enviroment
 
-    # @param [Hash] hash
-    # @option hash [Object] 'id' id of the Client
-    # @option hash [String] 'lang' language used
-    # @option hash [Array<String>] 'libs' libraries to load WARNING! sanitize them!
-    # @option hash [String] 'code' code to load
+    # Add a client to the Matrix specified with 'id'
+    # @option params [Object] 'id' id of the Client
+    # @option params [String] 'lang' language used
+    # @option params [Array<String>] 'libs' libraries to load WARNING! sanitize them!
+    # @option params [String] 'code' code to load
     # @return [Client] the new client
-    def add_client(hash)
+    def add_client(params)
       raise "Matrix running, you can't add new clients!" unless @state == :waiting
-      clients[id] = Client.new(hash, self)
+      clients[id] = Client.new(params, self)
     end
 
     # Let the fun begin!
