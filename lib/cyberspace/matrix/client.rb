@@ -14,6 +14,7 @@ class Cyberspace
       # @param [Matrix] matrix the matrix this Client belongs to
       def initialize(hash, matrix)
         @id, @lang, @libs, @code, @matrix = hash['id'], hash['lang'], hash['libs'], hash['code'], matrix
+        @ready = false
       end
 
       # @return [Object] id of the Client
@@ -30,7 +31,7 @@ class Cyberspace
       attr_reader :matrix
       # @return [Class] the class running as server
       attr_reader :server
-      # @return [true,nil] wherever the client is ready to run
+      # @return [Boolean] wherever the client is ready to run
       attr_reader :ready
 
       # @raise [NotImplementedError] in case the language is not supported
