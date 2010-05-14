@@ -30,7 +30,7 @@ class Cyberspace
       attr_reader :matrix
       # @return [Class] the class running as server
       attr_reader :server
-      # @return [true|nil] wherever the client is ready to run
+      # @return [true,nil] wherever the client is ready to run
       attr_reader :ready
 
       # @raise [NotImplementedError] in case the language is not supported
