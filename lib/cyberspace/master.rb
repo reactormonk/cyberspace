@@ -18,7 +18,7 @@ module Cyberspace
       params['id'] # for the JSONProtocol
     end
 
-    # @param [Hash] params data for the new agent
+    # Create a new Agent
     # @option params [String] 'id' id for the agent
     # @option params [String] 'matrix_id' (self.class.matrixes.values.last)
     #   which matrix the agent belongs to
