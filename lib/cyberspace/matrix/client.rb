@@ -29,7 +29,7 @@ class Cyberspace
       attr_reader :jail
       # @return [Matrix] the matrix this Client belongs to
       attr_reader :matrix
-      # @return [Class] the class running as server
+      # @return [Class, Module] the EM server
       attr_reader :server
       # @return [Boolean] wherever the client is ready to run
       attr_reader :ready
