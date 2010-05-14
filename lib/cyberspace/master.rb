@@ -9,8 +9,8 @@ module Cyberspace
 
     # Create a new Matrix
     # @option params [String] 'env' which enviroment (in Matrix::ENVIRNOMENTS)
-    # @option params [String] 'id' a hash key for the Matrix
-    # @return [String] the id of the created matrix
+    # @option params [Object] 'id' a hash key for the Matrix (likely a String)
+    # @return [Object] the id of the created matrix
     def new_matrix(params={})
       check_existence(params, %w(env id))
       raise ArgumentError, "id taken" if self.class.matrixes[params['id']]
