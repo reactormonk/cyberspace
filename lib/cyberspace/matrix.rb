@@ -22,14 +22,14 @@ module Cyberspace
       @state = :waiting
     end
 
-    # @return [Hash<Object, Client>] clients Hash containing all clients
+    # @return [Hash<Object, Client>] Hash containing all clients
     #   associated to this matrix
     attr_reader :clients
 
-    # @return [Symbol] state the state of the matrix
+    # @return [Symbol] the state of the matrix
     attr_reader :state
 
-    # @return [Enviroment] enviroment the enviroment the matrix is running in
+    # @return [Enviroment] the enviroment the matrix is running in
     attr_reader :enviroment
 
     # Add a client to the Matrix specified with 'id'
