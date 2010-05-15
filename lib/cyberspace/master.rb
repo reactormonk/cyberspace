@@ -26,6 +26,7 @@ module Cyberspace
     # @option params [Array] 'libs' ([]) which libraries to require
     # @option params [String] 'code' code to execute
     # @raise [RuntimeException] see messages ;-)
+    # @return [Object] the id of the created Agent
     def new_agent(params={})
       # TODO better error inheritance
       check_existence(params, %w(id lang code))

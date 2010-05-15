@@ -13,9 +13,10 @@ module Cyberspace
   #
   module JSONProtocol
 
-    private
+    protected
 
     # @see EventMachine::Connection#receive_data
+    # @return [void]
     # EM sends incoming data to this method, it's being parsed and rescued
     # here. The method passes the parsed hash to {#receive_hash}, rescing to
     #
@@ -73,11 +74,10 @@ module Cyberspace
       send_data(hash.to_json + "\x00")
     end
 
-    protected
-
     # @param [Hash] hash to be checked
     # @param [Array<String>] *keys to check for
     # @raise [ArgumentError] if the key doesn't exist
+    # @return [void]
     def check_existence(hash, *keys)
       keys.each do |key|
         raise ArgumentError, "no #{key} given" unless hash.has_key?(key)

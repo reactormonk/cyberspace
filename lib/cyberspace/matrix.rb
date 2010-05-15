@@ -44,6 +44,7 @@ module Cyberspace
     end
 
     # Let the fun begin!
+    # @return [void]
     def enter_the_matrix
       @state = :starting
       # probably add timer here
@@ -51,6 +52,7 @@ module Cyberspace
     end
 
     # callback method from the clients
+    # @return [void]
     def enter
       if @state == :starting and clients.values.all? { |client| client.ready }
         enviroment.enter_the_matrix
@@ -58,6 +60,7 @@ module Cyberspace
     end
 
     # @param [Hash] hash send a hash to all clients
+    # @return [void]
     def broadcast(hash)
       clients.each { |ident, client| client.send_hash(hash) }
     end
