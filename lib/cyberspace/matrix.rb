@@ -43,6 +43,12 @@ module Cyberspace
       clients[id] = Client.new(params, self)
     end
 
+    # @param [Object] client the Client to remove
+    # @return [Object] client id
+    def remove_client(client)
+      clients.delete(client)
+    end
+
     # Let the fun begin!
     # @return [void]
     def enter_the_matrix

@@ -17,7 +17,21 @@ module Cyberspace
         attr :client
       end
 
+      # @see EventMachine::Connection
+      # Setting up a Timebomb to kill the client if it hasn't loaded within 20s.
+      def post_init
+        EM::add_timer(20) do
+          unless client.ready
+            # TODO logger here
+            close_connection
+          end
+        end
+      end
+
+      # @see EventMachine::Connection
       def unbind
+        # TODO logger here
+        client.matrix.remove_client(client.id)
       end
 
     end
