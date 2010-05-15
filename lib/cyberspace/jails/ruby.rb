@@ -7,7 +7,7 @@ module Cyberspace
       # @param [Class, Module] server passed to EM::popen
       def initialize(libs, code, server)
         @libs, @code, @server = libs, code, server
-        @libs.unshift('json')
+        @libs.unshift('cyberspace/json_protocol')
         enter_the_matrix
       end
 
