@@ -39,7 +39,7 @@ module Cyberspace
     # @option params [String] 'code' code to load
     # @return [Client] the new client
     def add_client(params)
-      raise "Matrix running, you can't add new clients!" unless @state == :waiting
+      raise "Matrix not waiting, you can't add new clients!" unless @state == :waiting
       clients[id] = Client.new(params, self)
     end
 
