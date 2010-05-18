@@ -68,7 +68,7 @@ module Cyberspace
     # @param [Hash] hash send a hash to all clients
     # @return [void]
     def broadcast(hash)
-      clients.each { |ident, client| client.send_hash(hash) }
+      clients.each { |ident, client| client.send(:send_hash,hash) }
     end
 
   end
