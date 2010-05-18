@@ -53,7 +53,6 @@ module Cyberspace
     # @return [void]
     def enter_the_matrix
       @state = :starting
-      # probably add timer here
       enter
     end
 
