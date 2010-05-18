@@ -11,12 +11,18 @@ module Cyberspace
         true
       end
 
-      protected
       class << self
         # Client goes here
         attr :client
       end
 
+      # @see EventMachine::Connection
+      def unbind
+        # TODO logger here
+        client.matrix.remove_client(client.id)
+      end
+
+      protected
       # @see EventMachine::Connection
       # Setting up a Timebomb to kill the client if it hasn't loaded within 20s.
       def post_init
@@ -26,12 +32,6 @@ module Cyberspace
             close_connection
           end
         end
-      end
-
-      # @see EventMachine::Connection
-      def unbind
-        # TODO logger here
-        client.matrix.remove_client(client.id)
       end
 
     end

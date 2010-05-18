@@ -53,7 +53,7 @@ module Cyberspace
     # @return [Object] the return value of the called action
     def receive_hash(hash)
       action = hash['action']
-      if action !~ /^__.*/ && action !~ /=/ && receiver.respond_to?(action)
+      if action !~ /^__.*/ && action !~ /=/ && action != 'unbind' && receiver.respond_to?(action)
         case receiver.method(action).arity
         when 0
           receiver.send(action)
