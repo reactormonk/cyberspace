@@ -60,6 +60,7 @@ module Cyberspace
     # @return [void]
     def enter
       if @state == :starting and clients.values.all? { |client| client.ready }
+        # TODO logger
         enviroment.enter_the_matrix
       end
     end

@@ -1,3 +1,5 @@
+require_relative 'matrix'
+
 module Cyberspace
   module Master
     include JSONProtocol

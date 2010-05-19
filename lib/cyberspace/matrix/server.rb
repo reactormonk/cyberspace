@@ -1,3 +1,5 @@
+require_relative '../json_protocol'
+
 module Cyberspace
   class Matrix
     module Server

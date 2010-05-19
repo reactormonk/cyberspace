@@ -1,3 +1,10 @@
+# load all jails
+File.chdir('../jails') do |dir|
+  Dir['*.rb*'].each do |file|
+    require file
+  end
+end
+
 class Cyberspace
   class Matrix
     # This might be somewhat of confusing, but this Client is the serverside
